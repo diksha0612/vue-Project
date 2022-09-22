@@ -3,7 +3,7 @@
 <template>
   <div class="backdrop" @click="closeModal">
     <div class="modal" :class="{ sale: theme === 'sale' }">
-      <slot> defult slot</slot>
+      <slot> defult slots</slot>
       <div class="actions">
         <slot name="links"></slot>
       </div>
