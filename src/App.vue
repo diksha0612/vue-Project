@@ -1,69 +1,60 @@
+<!-- eslint-disable vue/no-unused-components -->
 <template>
-  <h1>{{ title }}</h1>
-  <p>Welcome...</p>
-  <div v-if="showModal">
-    <Modal  theme="sale" @close="toggleModal">
-        <p> Welcome to vue js</p>
-      <template v-slot:links>
-          <a href="#">sign In</a>
-          <a href="#">sign up</a>
-        </template>
-    </Modal>
-  </div>  
-
-   <div v-if="showModalTwo">
-    <Modal  theme="sale" @close="toggleModalTwo">
-      <p> Welcome to vue js</p>
-      <template v-slot:link>
-        <h1>hello World</h1>
-          <a href="#">LogIn</a>
-          <a href="#">LogOut</a>
-          
-        </template>
-    </Modal>
-  </div>  
-   <button @click="toggleModal">open modal</button>
-  <button @click="toggleModalTwo">open modal Two</button>
-</template>
+<h1>Reaction Timer</h1>  
+<button @click="startTimer" :disabled = "isPlaying">Play</button>
+<block v-if="isPlaying" :delay="delay" />       
+         
+</template>         
+       
 
 <script>
-import Modal from './components/Modal'
+import Block from './components/Block';
+import Result from './components/Result'
+
 
 export default {
   name: 'App',
-  components: { Modal },
+  // eslint-disable-next-line vue/no-unused-components
+  components: { Block, Result },
   data() {
     return {
-      title: 'My First Vue App!',
-      name:'VueJs',
-      projectName:'Workflows Ignatius',
-      showModal: false,
-      showModalTwo: false,
+      delay:null,
+      isPlaying:false,
+      
     }
   },
   methods: {
-    toggleModal() {
-      this.showModal = !this.showModal
-    },
-    toggleModalTwo() {
-      this.showModalTwo = !this.showModalTwo
-    }
+   startTimer(){
+      this.delay = 2000 + Math.random() * 5000;
+      this.isPlaying = true;
+   }
   }
+
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-h1 {
-  border-bottom: 1px solid #ddd;
-  display: inline-block;
-  padding-bottom: 10px;
-}
+  #app {
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #444;
+    margin-top: 60px;
+  }
+  button {
+    background: #0faf87;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 16px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    margin: 10px;
+  }
+  button[disabled] {
+    opacity: 0.2;
+    cursor: not-allowed;
+  }
 </style>
