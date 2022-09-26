@@ -2,33 +2,43 @@
 <template>
 <h1>Reaction Timer</h1>  
 <button @click="startTimer" :disabled = "isPlaying">Play</button>
-<block v-if="isPlaying" :delay="delay" />       
+<block v-if="isPlaying" :delay="delay" @end = "endGame" />       
+<Result v-if="showResult" :scores = "score"/>
+
          
 </template>         
        
 
 <script>
 import Block from './components/Block';
-import Result from './components/Result'
+import Result from './components/Result';
+
 
 
 export default {
   name: 'App',
   // eslint-disable-next-line vue/no-unused-components
-  components: { Block, Result },
+  components: { Block, Result,  },
   data() {
     return {
       delay:null,
       isPlaying:false,
-      
+      score : null,
+      showResult :false
     }
   },
   methods: {
    startTimer(){
-      this.delay = 2000 + Math.random() * 5000;
+      this.delay = 1000 + Math.random() * 1000;
       this.isPlaying = true;
+    },
+    endGame(reactionTime){
+      this.score = reactionTime;
+      this.isPlaying = false;
+      this.showResult = true;
+    }
    }
-  }
+
 
 }
 </script>
